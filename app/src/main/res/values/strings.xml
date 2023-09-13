@@ -6,6 +6,7 @@
     <string name="search_tab_text">Search</string>
     <string name="settings_tab_text">Settings</string>
     <string name="account_tab_text">Account</string>
+    <string name="notifications_tab_text">Notifications</string>
 
 
 </resources>

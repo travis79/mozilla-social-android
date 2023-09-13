@@ -8,6 +8,8 @@ import org.mozilla.social.core.network.model.NetworkField
 import org.mozilla.social.core.network.model.NetworkHashTag
 import org.mozilla.social.core.network.model.NetworkHistory
 import org.mozilla.social.core.network.model.NetworkMention
+import org.mozilla.social.core.network.model.NetworkNotification
+import org.mozilla.social.core.network.model.NetworkNotificationType
 import org.mozilla.social.core.network.model.NetworkPoll
 import org.mozilla.social.core.network.model.NetworkPollOption
 import org.mozilla.social.core.network.model.NetworkSource
@@ -21,6 +23,8 @@ import org.mozilla.social.model.Field
 import org.mozilla.social.model.HashTag
 import org.mozilla.social.model.History
 import org.mozilla.social.model.Mention
+import org.mozilla.social.model.Notification
+import org.mozilla.social.model.NotificationType
 import org.mozilla.social.model.Poll
 import org.mozilla.social.model.PollOption
 import org.mozilla.social.model.Source
@@ -225,4 +229,24 @@ fun NetworkSource.toExternalModel(): Source =
         defaultSensitivity = defaultSensitivity,
         defaultLanguage = defaultLanguage,
         followRequestsCount = followRequestsCount
+    )
+
+fun NetworkNotificationType.toExternalModel(): NotificationType =
+    when(this) {
+        NetworkNotificationType.Follow -> NotificationType.Follow
+        NetworkNotificationType.FollowRequest -> NotificationType.FollowRequest
+        NetworkNotificationType.Mention -> NotificationType.Mention
+        NetworkNotificationType.Boost -> NotificationType.Boost
+        NetworkNotificationType.Favourite -> NotificationType.Favourite
+        NetworkNotificationType.Poll -> NotificationType.Poll
+        NetworkNotificationType.Status -> NotificationType.Status
+    }
+
+fun NetworkNotification.toExternalModel(): Notification =
+    Notification(
+        notificationId = notificationId,
+        type = type.toExternalModel(),
+        createdAt = createdAt,
+        account = account.toExternalModel(),
+        status = status?.toExternalModel()
     )
